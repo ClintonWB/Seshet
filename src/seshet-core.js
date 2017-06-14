@@ -100,6 +100,7 @@
             this.body.appendFromString(this.target[0].value);
         } 
         container.append(this.element);
+        this.element.find('input').first().focus();
     }
 
     seshet.InputLine.prototype.htmlprototype = '<span class="seshet-input-line"></span>'
