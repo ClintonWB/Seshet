@@ -1,12 +1,26 @@
 (function(seshet, $, undefined){
+    seshet.uuid = 0;
     seshet.Focus = null;
     updateCurrentFocus = function(event) {
         seshet.Focus = event.target.container;
     }
 
+
+    seshet.enterListener = function enterListener(event){
+        if (event.keyCode == '13'){
+            event.preventDefault();
+            var e = $.Event("keypress");
+            e.keyCode = '13';
+            e.which = '13';
+            this.root.target.trigger(e);
+        }
+    }
+
+
     seshet.TextBox = function(parent, required, content){
         this.required = required;
         this.prevOperator = null;
+        this.nextOperator = null;
         this.parent = parent;
         this.root = parent.root;
         this.element = $(this.htmlprototype);
@@ -16,7 +30,10 @@
         this.element.bind('input',scaleInputListener);
         this.element.bind('input',updateAnswerListener);
         this.element.bind('focus',updateCurrentFocus);
-        this.element.bind('keydown',this.arrowListener);
+        this.element.bind('keydown',this.arrowListener.bind(this));
+        this.element.bind('keydown',this.deleteListener.bind(this));
+        this.element.bind('keypress',seshet.enterListener.bind(this));
+
         if (content === undefined) content = '';
         this.setValue(content);
     }
@@ -37,17 +54,22 @@
 
     seshet.TextBox.prototype.insertOperatorAtEnd = function (operator) {
         var nextTextBox = new seshet.TextBox(this.parent, false);
-        var op = new operator(this.parent);
-        nextTextBox.prev = op.list[op.length-1].list[0];
-        nextTextBox.prev.next = nextTextBox;
         nextTextBox.next = this.next;
+        var op = new operator(this.parent);
+        if (op.list.length != 0){
+            nextTextBox.prev = op.list[op.length-1].list[0];
+            this.next = op.list[0].list[0];
+        } else {
+            nextTextBox.prev = this;
+            this.next = nextTextBox;
+        }
+        nextTextBox.prev.next = nextTextBox;
         if (nextTextBox.next) nextTextBox.next.prev = nextTextBox;
-        this.next = op.list[0].list[0];
         this.next.prev = this;
         op.nextTextBox = nextTextBox;
         nextTextBox.prevOperator = op;
-        
-        nextTextBox.element.bind('keydown',function (keyEvent) {op.deleteListener(op,keyEvent)});
+        nextTextBox.nextOperator = this.nextOperator;
+        this.nextOperator = op;
         var index = this.parent.list.indexOf(this);
         this.parent.length += 2;
         this.parent.list.splice(index+1,0,op,nextTextBox);
@@ -64,11 +86,11 @@
         var initialValue = seshet.Focus.element[0].value;
         seshet.Focus.setValue(initialValue.slice(0,ss));
         var op = seshet.Focus.insertOperatorAtEnd(operator);
-        op.list[0].list[0].setValue(initialValue.slice(ss,se));
         op.nextTextBox.setValue(initialValue.slice(se,initialValue.length));
-        var index = seshet.Focus.parent.list.indexOf(seshet.Focus);
-        seshet.Focus.parent.list.splice(index+1,0,op,op.nextTextBox);
-        op.list[0].list[0].element.focus();
+        if (op.list.length != 0) {
+            op.list[0].list[0].setValue(initialValue.slice(ss,se));
+            op.list[0].list[0].element.focus();
+        }
         return op;
     }
 
@@ -80,6 +102,7 @@
         this.list = [new seshet.TextBox(this,true)];
         this.element.append(this.list[0].element);
     }
+    
 
     seshet.TermField.prototype.htmlprototype = '<span class="seshet-term-field"></span>'
     seshet.TermField.prototype.toString = function (){
@@ -90,14 +113,22 @@
         return output;
     }
 
+    seshet.TermField.prototype.clear = function (){
+        box = this.list[0];
+        while (box.nextOperator){
+            box.nextOperator.delete();
+        }
+        box.setValue('');
+    }
+
     seshet.InputLine = function (container, target){
         this.root = this;
         this.body = new seshet.TermField(this);
         this.target = target;
         this.element = $(this.htmlprototype);
         this.element.append(this.body.element);
-        if (this.target[0].value !== ""){
-            this.body.appendFromString(this.target[0].value);
+        if (this.target.val() !== ""){
+            this.body.appendFromString(this.target.val());
         } 
         container.append(this.element);
         this.element.find('input').first().focus();
@@ -105,12 +136,16 @@
 
     seshet.InputLine.prototype.htmlprototype = '<span class="seshet-input-line"></span>'
 
+    seshet.InputLine.prototype.clear = function (){
+        this.body.clear();
+    }
+
     seshet.InputLine.prototype.toString = function (){
         return this.body.toString();
     }
 
     seshet.InputLine.prototype.updateAnswer = function(){
-        this.target[0].value = this.toString();
+        this.target.val(this.toString());
     }
 
     function scaleInput(target){
@@ -163,20 +198,35 @@
         var prevBox = this.parent.list[index-1];
         var nextBox = this.parent.list[index+1];
         prevBox.next = nextBox.next;
+        prevBox.nextOperator = nextBox.nextOperator;
         if (prevBox.next) prevBox.next.prev = prevBox;
-        prevBox.setValue(prevBox.getValue()+nextBox.getValue());
+        prevBox.element.focus();
+        var prevText =  prevBox.getValue();
+        var prevLength = prevText.length;
+        var combinedtext = prevText+nextBox.getValue();
+        prevBox.setValue(combinedtext);
+        prevBox.element[0].selectionStart = prevLength;
+        prevBox.element[0].selectionEnd = prevLength;
         this.element.remove();
         nextBox.element.remove();
         this.parent.list.splice(index,2);
         this.parent.length -= 2;
-        if (this.parent.list.length === 1) prevBox.element.addClass('seshet-input-alone');
+        if (this.parent.length === 1) prevBox.element.addClass('seshet-input-alone');
+        this.root.updateAnswer();
     }
 
-    seshet.Operator.prototype.deleteListener = function(op, keyEvent) {
+    seshet.TextBox.prototype.deleteListener = function(keyEvent) {
         var target = keyEvent.target;
         var ss = target.selectionStart;
-        if (keyEvent.keyCode === 8 & ss === 0){
-            op.delete();
+        var se = target.selectionEnd;
+        var sl = target.value.length;
+        if (keyEvent.keyCode === 8 && ss === 0 && this.prevOperator){
+            this.prevOperator.delete();
+            keyEvent.preventDefault();
+        }
+        else if (keyEvent.keyCode === 46 && se === sl && this.nextOperator){
+            this.nextOperator.delete();
+            keyEvent.preventDefault();
         }
     }
 
@@ -300,4 +350,5 @@
         lastBox.setValue(lastBox.getValue()+texts.shift());
         this.root.updateAnswer();
     }
+
 }( window.seshet = window.seshet || {}, jQuery));

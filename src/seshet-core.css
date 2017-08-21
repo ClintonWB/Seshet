@@ -4,7 +4,7 @@
     text-align: center;
     display:inline-block;
     font-size:10pt;
-
+    display:inline-block;
 }
 
 .seshet-input-required.seshet-input-empty.seshet-input-alone{
@@ -21,6 +21,8 @@
     border: solid black 1px;
     text-align:left;
     min-width:400px;
+    display:inline-block;
+    white-space:nowrap;
 }
 
 .seshet-input-container{

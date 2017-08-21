@@ -1,0 +1,38 @@
+
+.seshet-buttons-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    border:1px solid black;
+    border-radius:10px;
+}
+
+.seshet-buttons-table td, th {
+    border: 0px solid black;
+    text-align: left;
+    padding: 8px;
+
+}
+
+
+.seshet-buttons-button {
+  display: block;
+  margin: -6px;
+  width: 60px;
+  height: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.seshet-buttons-button:hover{
+  text-decoration: none;
+  color: #555;
+  background: #ffffff;
+}
+
+.seshet-buttons-overline{
+  border-top:1px solid black;
+}
+
+.seshet-buttons-hidden{
+  display:none;
+}
