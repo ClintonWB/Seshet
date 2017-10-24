@@ -26,50 +26,52 @@ Style operators in seshet-operators.css
 (function(seshet, $, undefined){
     
     seshet.operators.registerOperator("Paren",
-    '<span class="seshet-paren"><span class="seshet-input-container"></span></span>',
-    '{0}');
+    {'html':'<span class="seshet-paren"><span class="seshet-input-container"></span></span>',
+    'str':'{0}'});
 
     seshet.operators.registerOperator("Fraction",
-    '<table class="seshet-fraction"><tr><td class="seshet-fraction-numerator mathinput-fraction-ator"><span class="seshet-input-container" number="0" required="true"/></td></tr><tr><td class="seshet-fraction-denominator seshet-fraction-ator"><span class="seshet-input-container" number="1" required="true"/></td></tr></table>',
-    '{0}/{1}');
+    {'html':'<table class="seshet-fraction"><tr><td class="seshet-fraction-numerator mathinput-fraction-ator"><span class="seshet-input-container" number="0" required="true"/></td></tr><tr><td class="seshet-fraction-denominator seshet-fraction-ator"><span class="seshet-input-container" number="1" required="true"/></td></tr></table>',
+    'str':'{0}/{1}'});
 
     seshet.operators.registerOperator("Sqrt",
-    '<span class="seshet-sqrt"><span class="sqrt-symbol"></span><span class="seshet-input-container seshet-sqrt-body"></span></span>',
-    ' sqrt{0}');
+    {'html':'<span class="seshet-sqrt"><span class="sqrt-symbol"></span><span class="seshet-input-container seshet-sqrt-body"></span></span>',
+    'str':' sqrt{0}'});
 
     seshet.operators.registerOperator("Exponent",
-    '<span class="seshet-exponent"><sup><span class="seshet-input-container"></span></sup></span>',
-    '^{0}');
+    {'html':'<span class="seshet-exponent"><sup><span class="seshet-input-container"></span></sup></span>',
+    'str':'^{0}'});
 
     seshet.operators.registerOperator("Abs",
-    '<span class="seshet-abs"><span class="seshet-input-container"></span></span>',
-    ' abs{0}');
+    {'html':'<span class="seshet-abs"><span class="seshet-input-container"></span></span>',
+    'str':' abs{0}'});
 
     seshet.operators.registerOperator("Ln",
-    '<span class="seshet-in"><span class="seshet-input-container"></span></span>',
-    ' ln{0}');
+    {'html':'<span class="seshet-in"><span class="seshet-input-container"></span></span>',
+    'str':' ln{0}'});
  
     seshet.operators.registerOperator("Log",
-    '<span class="seshet-log"><sub><span class="seshet-input-container" number="0" required="true"></span></sub><sup><span class="seshet-input-container" number="1" required="true"></span></sup></span>',
-    ' log{0}{1}');
+    {'html':'<span class="seshet-log"><sub><span class="seshet-input-container" number="0" required="true"></span></sub><sup><span class="seshet-input-container" number="1" required="true"></span></sup></span>',
+    'str':' log{0}{1}'});
 
     seshet.operators.registerOperator("Pi",
-    '<span class="seshet-pi">&pi;</span>',
-    ' pi ');
+    {'html':'<span class="seshet-pi">&pi;</span>',
+     'str':' pi '});
 
    seshet.operators.registerOperator("GTE",
-    '<span class="seshet-gte">&ge;</span>',
-    ' gte ');
+    {'html':'<span class="seshet-gte">&ge;</span>',
+     'str':' gte '});
 
    seshet.operators.registerOperator("LTE",
-    '<span class="seshet-lte">&le;</span>',
-    ' lte ');
+    {'html':'<span class="seshet-lte">&le;</span>',
+     'str':' lte '});
 
    seshet.operators.registerOperator("GT",
-    '<span class="seshet-gt">&gt;</span>',
-    ' gt ');
+    {'html':'<span class="seshet-gt">&gt;</span>',
+     'str':' gt '});
 
    seshet.operators.registerOperator("LT",
-    '<span class="seshet-lt">&lt;</span>',
-    ' lt ');
+    {'html':'<span class="seshet-lt">&lt;</span>',
+     'str':' lt '});
+
+    
 }( window.seshet = window.seshet || {}, jQuery));

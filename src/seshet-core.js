@@ -1,10 +1,15 @@
+function ValueError(message) {
+    this.message = (message || "");
+}
+ValueError.prototype = new Error();
+ValueError.prototype.name = "ValueError";
+
 (function(seshet, $, undefined){
     seshet.uuid = 0;
     seshet.Focus = null;
     updateCurrentFocus = function(event) {
         seshet.Focus = event.target.container;
     }
-
 
     seshet.enterListener = function enterListener(event){
         if (event.keyCode == '13'){
@@ -15,7 +20,6 @@
             this.root.target.trigger(e);
         }
     }
-
 
     seshet.TextBox = function(parent, required, content){
         this.required = required;
@@ -118,7 +122,8 @@
         while (box.nextOperator){
             box.nextOperator.delete();
         }
-        box.setValue('');
+        box.element.val('');
+        this.root.updateAnswer();
     }
 
     seshet.InputLine = function (container, target){
@@ -131,7 +136,8 @@
             this.body.appendFromString(this.target.val());
         } 
         container.append(this.element);
-        this.element.find('input').first().focus();
+        $('.seshet-text-box').first().focus();
+        this.target.bind('change',answerChangeListener.bind(this));
     }
 
     seshet.InputLine.prototype.htmlprototype = '<span class="seshet-input-line"></span>'
@@ -161,6 +167,12 @@
 
     function updateAnswerListener(event){
         event.target.container.root.updateAnswer();
+    }
+
+    function answerChangeListener(event){
+        var val = event.target.value;
+        this.clear();
+        this.body.appendFromString(val);
     }
 
     var scaleInputListener= function(event){
@@ -298,7 +310,7 @@
                     }
                 }
                 if (i==length){
-                    return false;
+                    throw new ValueError("Unable to understand formula.");
                 }
             }
         }
@@ -313,7 +325,11 @@
     seshet.InfixOp.prototype.constructor = seshet.InfixOp;
 
     seshet.operators = [];
-    seshet.operators.registerOperator = function (name, htmlprototype, strprototype){
+    seshet.operators.registerOperator = function (name,options){
+        htmlprototype = options.html;
+        strprototype = options.str;
+        mathjs_name = options.mathjs_name;
+        
         seshet.operators[name] = function (parent){
             seshet.Operator.call(this,parent);
         }
@@ -329,7 +345,14 @@
     }
     seshet.TermField.prototype.appendFromString = function(input){
         var texts,fields;
-        [texts,fields] = splitParens(input);
+        try {
+            [texts,fields] = splitParens(input);
+        } catch (ex){
+            if (ex instanceof ValueError){
+                texts = [input];
+                fields = [];
+            } else {throw ex}
+        }
         while(fields.length > 0){
             for(var i=0;i<seshet.operators.length;i++){
                 var operator = seshet.operators[i];
