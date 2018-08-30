@@ -98,11 +98,11 @@
 }
 
 .seshet-exponent + .seshet-input-empty + .seshet-subscript{
-  margin-left:-1.1em;
+  margin-left:-.9em;
 }
 
 .seshet-subscript + .seshet-input-empty + .seshet-exponent{
-  margin-left:-1.1em;
+  margin-left:-.9em;
 }
 
 .seshet-ln:before{
