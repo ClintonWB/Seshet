@@ -34,23 +34,31 @@ Style operators in seshet-operators.css
     'str':'{0}/{1}'});
 
     seshet.operators.registerOperator("Sqrt",
-    {'html':'<span class="seshet-sqrt"><span class="sqrt-symbol"></span><span class="seshet-input-container seshet-sqrt-body"></span></span>',
+    {'html':'<span class="seshet-sqrt"><span class="seshet-input-container seshet-sqrt-body"></span></span>',
     'str':' sqrt{0}'});
+ 
+    seshet.operators.registerOperator("Nthrt",
+    {'html':'<span class="seshet-nthrt"><span class="seshet-nthrt-nblock"><span class="seshet-input-container seshet-nthrt-n"></span><span class="seshet-nthrt-subn"></span></span><span class="seshet-nthrt-inner"><span class="seshet-input-container seshet-sqrt-body"></span></span></span>',
+    'str':' nthrt{0}{1}'});
 
     seshet.operators.registerOperator("Exponent",
-    {'html':'<span class="seshet-exponent"><sup><span class="seshet-input-container"></span></sup></span>',
+    {'html':'<span class="seshet-exponent"><span class="seshet-input-container"></span></span>',
     'str':'^{0}'});
+
+    seshet.operators.registerOperator("Subscript",
+    {'html':'<span class="seshet-subscript"><span class="seshet-input-container"></span></span>',
+'str':'_{0}'});
 
     seshet.operators.registerOperator("Abs",
     {'html':'<span class="seshet-abs"><span class="seshet-input-container"></span></span>',
     'str':' abs{0}'});
 
     seshet.operators.registerOperator("Ln",
-    {'html':'<span class="seshet-in"><span class="seshet-input-container"></span></span>',
+    {'html':'<span class="seshet-ln"><span class="seshet-paren"><span class="seshet-input-container"></span></span></span>',
     'str':' ln{0}'});
  
     seshet.operators.registerOperator("Log",
-    {'html':'<span class="seshet-log"><sub><span class="seshet-input-container" number="0" required="true"></span></sub><sup><span class="seshet-input-container" number="1" required="true"></span></sup></span>',
+    {'html':'<span class="seshet-log"><span class="seshet-log-base"><span class="seshet-input-container" number="0" required="true"></span></span><span class="seshet-paren"><span class="seshet-input-container" number="1" required="true"></span></span></span>',
     'str':' log{0}{1}'});
 
     seshet.operators.registerOperator("Pi",

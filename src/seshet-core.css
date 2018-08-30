@@ -3,8 +3,15 @@
     font-family:monospace;
     text-align: center;
     display:inline-block;
-    font-size:10pt;
+    font-size: 10pt;
     display:inline-block;
+}
+
+#seshet-buttons-container{
+    display:block;
+}
+#seshet-input-container{
+    display:block;
 }
 
 .seshet-input-required.seshet-input-empty.seshet-input-alone{

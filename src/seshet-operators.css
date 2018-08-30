@@ -3,6 +3,22 @@
     vertical-align:middle;
 }
 
+.seshet-subscript .seshet-fraction{
+  vertical-align:top;
+}
+
+.seshet-log-base .seshet-fraction{
+  vertical-align:top;
+}
+
+.seshet-superscript .seshet-fraction{
+  vertical-align:bottom;
+}
+
+.seshet-nthrt-n .seshet-fraction{
+  vertical-align:bottom;
+}
+
 .seshet-fraction-ator{
     text-align:center;
 }
@@ -22,17 +38,85 @@
     display: inline-block;
 }
 
+.seshet-nthrt-inner{
+    margin-top:1px;
+    border-image-source: url(generic_radical.svg);
+    border-image-slice: 0 0 0 100%;
+    border-image-repeat: stretch;
+    border-image-width: 4px 0 0 11px;
+    padding-left: 8px;
+    border-style: solid;
+    display: inline-block;
+}
+
+.seshet-nthrt-n{
+    border-bottom: 1.25px solid black;
+    margin-bottom: 1px;
+    margin-right: -3px;
+    vertical-align:46%;
+}
+
+.seshet-nthrt-n input{
+  transform:scale(.75);
+}
+
 .seshet-sqrt-body{
     border-top: 1px solid black;
     margin-top: 1px;
     display:inline-block;
 }
 
-.seshet-exponent input{
-  vertical-align:+25%;
-  font-size:small;
+.seshet_input{
+  transform:scale(.75);
 }
 
+.seshet-exponent input{
+  transform:scale(.75);
+}
+
+.seshet-exponent{
+  vertical-align:40%;
+  margin-left:-.3em;
+}
+
+.seshet-subscript input{
+  transform:scale(0.75);
+}
+
+.seshet-subscript{
+  vertical-align:-40%;
+  margin-left:-.3em;
+}
+
+.seshet-subscript + .seshet-input-empty{
+  display:hidden;
+  pointer-events:none;
+}
+.seshet-superscript + .seshet-input-empty{
+  display:hidden;
+  pointer-events:none;
+}
+
+.seshet-exponent + .seshet-input-empty + .seshet-subscript{
+  margin-left:-1.1em;
+}
+
+.seshet-subscript + .seshet-input-empty + .seshet-exponent{
+  margin-left:-1.1em;
+}
+
+.seshet-ln:before{
+    content:"ln";
+}
+.seshet-log:before{
+    content:"log";
+}
+.seshet-log-base{
+    vertical-align: -40%;
+}
+.seshet-log-base input{
+    transform:scale(.75);
+}
 
 .seshet-paren{
   display:inline-block;
