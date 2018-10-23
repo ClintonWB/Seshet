@@ -1,7 +1,6 @@
 # Seshet
 A Javascript-based WSYWIG Algebra Input System for LonCapa
 
-```html
 <link rel="stylesheet" href="seshet-core.css" />
 <link rel="stylesheet" href="seshet-operators.css" />
 <link rel="stylesheet" href="seshet-buttons.css" />
@@ -26,4 +25,3 @@ function onLoad(){
 <input id="seshet-target" type="text" value="a^(b)_(c) ( nthrt(2)(x))/(2)"/>
 </div>
 <div id="seshet-button-container"></div>
-```
