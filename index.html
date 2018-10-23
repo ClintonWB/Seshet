@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Formula Demonstration</title>
+<link rel="stylesheet" href="src/seshet-core.css" />
+<link rel="stylesheet" href="src/seshet-operators.css" />
+<link rel="stylesheet" href="src/seshet-buttons.css" />
+<script src="src/jquery.min.js"></script>
+<script src="src/math.js"></script>
+<script type="text/javascript" src="src/seshet-core.js"></script>
+<script type="text/javascript" src="src/seshet-operators.js"></script>
+<script type="text/javascript" src="src/seshet-buttons.js"></script>
+</head>
+
+<script type="text/javascript">
+function onLoad(){
+    m = new seshet.InputLine($('#seshet-input-container'),$('#seshet-target'));
+    m = new seshet.ButtonBox($('#seshet-button-container'),$('#seshet-target'));
+}
+</script>
+<body onload="onLoad()">
+<div id="seshet-input-container">
+  
+</div>
+<div>
+<input id="seshet-target" type="text" value="a^(b)_(c) ( nthrt(2)(x))/(2)"/>
+</div>
+<div id="seshet-button-container"></div>
+</body>
+</html>
