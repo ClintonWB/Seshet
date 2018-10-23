@@ -9,14 +9,14 @@
 </span>
     <table id="seshet-buttons-table-${this.id}" class="seshet-buttons-table seshet-buttons-hidden">
   <tr>
-    <th><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Fraction); return false; ">½</button></th>
-    <th><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Exponent); return false; ">aᵇ</button></th>
-    <th><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Subscript); return false; ">bₐ</button></th>
+    <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Exponent); return false; ">aᵇ</button></td>
+    <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Subscript); return false; ">bₐ</button></td>
+    <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Fraction); return false; ">½</button></td>
     <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Pi); return false;">&pi;</button></td>
   </tr>
   <tr>
-    <th><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Sqrt); return false;">√<span class="seshet-buttons-overline">a</span></button></th>
-    <th><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Nthrt); return false;">ᵇ√<span class="seshet-buttons-overline">a</span></button></th>
+    <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Sqrt); return false;">√<span class="seshet-buttons-overline">a</span></button></td>
+    <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Nthrt); return false;">ᵇ√<span class="seshet-buttons-overline">a</span></button></td>
     <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Abs); return false;">|a|</button></td>
     <td><button class="seshet-buttons-button" onclick="seshet.insertOperatorAtCursor(seshet.operators.Paren); return false;">(a)</button></td>
   </tr>

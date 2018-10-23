@@ -45,6 +45,7 @@ Style operators in seshet-operators.css
     {'html':'<span class="seshet-exponent"><span class="seshet-input-container"></span></span>',
     'str':'^{0}'});
 
+
     seshet.operators.registerOperator("Subscript",
     {'html':'<span class="seshet-subscript"><span class="seshet-input-container"></span></span>',
 'str':'_{0}'});
@@ -59,7 +60,7 @@ Style operators in seshet-operators.css
  
     seshet.operators.registerOperator("Log",
     {'html':'<span class="seshet-log"><span class="seshet-log-base"><span class="seshet-input-container" number="0" required="true"></span></span><span class="seshet-paren"><span class="seshet-input-container" number="1" required="true"></span></span></span>',
-    'str':' log{0}{1}'});
+    'str':' log_{0}{1}'});
 
     seshet.operators.registerOperator("Pi",
     {'html':'<span class="seshet-pi">&pi;</span>',
